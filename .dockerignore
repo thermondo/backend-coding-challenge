@@ -1,0 +1,30 @@
+venv
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+
+coverage.xml
+*.cover
+.hypothesis/
+cover
+
+.mypy_cache/
+
+# Envs
+*.env
+
+# pycharm
+.idea/
+
+# Local settings
+thermodo/local_settings.py
+
+# data
+*.sqlite3
+
+.DS_Store
+
