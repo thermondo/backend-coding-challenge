@@ -1,16 +1,16 @@
-FROM python:3.10
+FROM python:3.10-slim-buster AS poetry
+RUN pip install poetry
+WORKDIR /app
+COPY pyproject.toml poetry.lock .
+RUN poetry export -f requirements.txt --output requirements.txt
 
-ENV PYTHONUNBUFFERED 1
-ENV HOMEDIR=/usr/src
+FROM python:3.10-slim-buster
+WORKDIR /app
+COPY --from=poetry /app/requirements.txt .
+RUN pip install -r requirements.txt
+COPY . .
+RUN ["chmod", "+x", "./entrypoint.sh"]
 
-WORKDIR $HOMEDIR
+# CMD ["./manage.py", "runserver", "0.0.0.0:8000"]
 
-COPY poetry.lock pyproject.toml $HOMEDIR/
-COPY . $HOMEDIR/.
-
-RUN pip3 install poetry \
- && poetry install
-
-COPY ./entrypoint.sh .
-RUN chmod u+x ./entrypoint.sh
 ENTRYPOINT ["./entrypoint.sh"]
