@@ -1,0 +1,96 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+cover
+
+# Translations
+*.mo
+*.pot
+
+# Django stuff:
+*.log
+.static_storage/
+.media/
+*/local.py
+
+
+# PyBuilder
+target/
+
+
+# pyenv
+.python-version
+
+
+# Environments
+.env
+.venv
+venv
+
+
+# Rope project settings
+.ropeproject
+
+# mkdocs documentation
+/site
+
+# django staticfiles
+/static
+
+# mypy
+.mypy_cache/
+
+# Envs
+*.env
+
+# pycharm
+.idea/
+
+# Local settings 
+multitanent/local_settings.py
+
+# data
+*.sqlite3
+
+.DS_Store

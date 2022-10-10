@@ -38,9 +38,12 @@ INSTALLED_APPS = [
     # extra dependencies
     "rest_framework",
     "rest_framework.authtoken",
+    "django_filters",
+
     # Custom apps
+    "core",
     "notes",
-    "users",
+    # "users",
 ]
 
 MIDDLEWARE = [

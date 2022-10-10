@@ -11,7 +11,7 @@ services:
   app:
     env_file:
       - .dev.env
-    command: "echo here we are; ls -la && poetry run python manage.py runserver 0.0.0.0:8000"
+    command: "poetry run python manage.py runserver 0.0.0.0:8000"
     build: .
     volumes:
       - .:/usr/src
