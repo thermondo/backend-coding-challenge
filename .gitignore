@@ -82,7 +82,7 @@ venv
 .mypy_cache/
 
 # Envs
-*.env
+.env
 
 # pycharm
 .idea/

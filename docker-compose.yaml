@@ -1,24 +1,25 @@
 version: "3.7"
 
 services:
-#  db:
-#    image: postgres:14-alpine
-#    env_file:
-#      - .dev.env
-#    volumes:
-#      - postgres_data:/var/lib/postgresql/data/
+  db:
+    image: postgres:14-alpine
+    restart: always
+    env_file:
+      - .dev.env
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
 
   app:
     env_file:
       - .dev.env
-    command: "poetry run python manage.py runserver 0.0.0.0:8000"
+    command: "python manage.py runserver 0.0.0.0:8000"
     build: .
     volumes:
       - .:/usr/src
     ports:
       - "8000:8000"
-#    links:
-#      - db
+    links:
+      - db
 
-#volumes:
-#    postgres_data:
+volumes:
+    postgres_data:

@@ -20,6 +20,5 @@ from django.urls import path
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path('api/v1/', include(('core.urls', 'api'), namespace='thermondo_app'))
-
+    path("api/v1/", include(("core.urls", "api"), namespace="thermondo_app")),
 ]

@@ -20,9 +20,6 @@ cover
 # pycharm
 .idea/
 
-# Local settings
-thermodo/local_settings.py
-
 # data
 *.sqlite3
 

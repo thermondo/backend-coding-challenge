@@ -1,5 +1,9 @@
 This repo aims to solve case given by Thermondo. Request details can be seen [here](case_definition.md).
 
+## Setup
+You can use [poetry](https://python-poetry.org/) or docker for local development. 
+For a list of instructions, see [Makefile](./Makefile)
+
 
 ## TODOS
 
@@ -22,6 +26,8 @@ Below is the list of subjects I would do better if I had time
  
  - [x] Use multi-stage builds
  - [ ] Publish custom docker image(s)
+ - [ ] Add pg_ready check for database status before making a call
+ 
 **Deployments**
 
  - Publish as pypi package

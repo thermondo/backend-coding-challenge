@@ -1,4 +1,5 @@
 #!/bin/bash
+# TODO: Add pg_ready check for database status before making a call!
 
 echo "Apply database migrations here"
 

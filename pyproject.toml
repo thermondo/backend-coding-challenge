@@ -6,9 +6,11 @@ authors = ["Ilhan Cetin <iilhancetin@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.10"
+psycopg2-binary = "^2.9.3"
 Django = "^4.1.2"
 djangorestframework = "^3.14.0"
 django-filter = "^22.1"
+django-extensions = "^3.2.1"
 
 [tool.poetry.dev-dependencies]
 black = "^22.10.0"

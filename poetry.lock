@@ -97,6 +97,17 @@ argon2 = ["argon2-cffi (>=19.1.0)"]
 bcrypt = ["bcrypt"]
 
 [[package]]
+name = "django-extensions"
+version = "3.2.1"
+description = "Extensions for Django"
+category = "main"
+optional = false
+python-versions = ">=3.6"
+
+[package.dependencies]
+Django = ">=3.2"
+
+[[package]]
 name = "django-filter"
 version = "22.1"
 description = "Django-filter is a reusable Django application for allowing users to filter querysets dynamically."
@@ -244,6 +255,14 @@ toml = "*"
 virtualenv = ">=20.0.8"
 
 [[package]]
+name = "psycopg2-binary"
+version = "2.9.4"
+description = "psycopg2 - Python-PostgreSQL Database Adapter"
+category = "main"
+optional = false
+python-versions = ">=3.6"
+
+[[package]]
 name = "py"
 version = "1.11.0"
 description = "library with cross-python path, ini-parsing, io, code, log facilities"
@@ -358,7 +377,7 @@ testing = ["coverage (>=6.2)", "coverage-enable-subprocess (>=1)", "flaky (>=3.7
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "73431247093134061b5d14eb10bc679d8ee9a0d25a1ceb48f03ca2447ef0a78e"
+content-hash = "d6ab97710674973eafd610cb452c8c983a68df1687db71dfabc4539fb2794c6b"
 
 [metadata.files]
 asgiref = []
@@ -369,6 +388,7 @@ click = []
 colorama = []
 distlib = []
 django = []
+django-extensions = []
 django-filter = []
 djangorestframework = []
 filelock = []
@@ -385,6 +405,7 @@ pathspec = []
 platformdirs = []
 pluggy = []
 pre-commit = []
+psycopg2-binary = []
 py = []
 pyparsing = []
 pytest = []
