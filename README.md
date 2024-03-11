@@ -36,5 +36,4 @@ Try to produce something that is at least minimally functional. Part of the exer
 
 | Tech Stack | CI Integration | Challenge |
 |--|--|--|
-| Python & Django | Yes | [Repository →](https://github.com/Thermondo/backend-coding-challenge-django) 
 | Kotlin & Ktor | Yes | [Repository →](https://github.com/Thermondo/backend-coding-challenge-ktor)
