@@ -29,6 +29,7 @@ to systems design!**
 - [ ] Provide documentation for your API endpoints using tools like Swagger.
 - [ ] Implement logging to record errors and debug information.
 - [ ] Implement caching mechanisms to improve the rating system's performance.
+- [ ] Implement CI/CD quality gates.
 
 ## 📋 Evaluation Criteria
 
