@@ -33,13 +33,13 @@ to systems design!**
 
 ## 📋 Evaluation Criteria
 
-- Systems Design: We want to see your ability to design a flexible and
+- **Systems Design:** We want to see your ability to design a flexible and
   extendable system. Apply design patterns and software engineering concepts.
-- Code quality: Readability, maintainability, and adherence to best practices.
-- Functionality: Does the system meet the requirements? Does it provide movie
+- **Code quality:** Readability, maintainability, and adherence to best practices.
+- **Functionality:** Does the system meet the requirements? Does it provide movie
   ratings?
-- Testing: Adequate test coverage and thoroughness of testing.
-- Documentation: Clear documentation for setup, usage, and API endpoints.
+- **Testing:** Adequate test coverage and thoroughness of testing.
+- **Documentation:** Clear documentation for setup, usage, and API endpoints.
 
 ## 📐 Submission Guidelines
 
