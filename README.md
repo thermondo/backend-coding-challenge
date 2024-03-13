@@ -8,7 +8,9 @@ backend system that handles user interactions and provides movie ratings. We
 don't want to check coding conventions only; **we want to see your approach
 to systems design!**
 
-**⚠️ Please select the language and framework of your choice.**
+**⚠️ As a tech-agnostic engineering team, we ask you to pick the technologies
+you are most comfortable with and those that will showcase your strongest
+performance. 💪**
 
 ## ✅ Requirements
 
@@ -35,8 +37,10 @@ to systems design!**
 
 - **Systems Design:** We want to see your ability to design a flexible and
   extendable system. Apply design patterns and software engineering concepts.
-- **Code quality:** Readability, maintainability, and adherence to best practices.
-- **Functionality:** Does the system meet the requirements? Does it provide movie
+- **Code quality:** Readability, maintainability, and adherence to best
+  practices.
+- **Functionality:** Does the system meet the requirements? Does it provide
+  movie
   ratings?
 - **Testing:** Adequate test coverage and thoroughness of testing.
 - **Documentation:** Clear documentation for setup, usage, and API endpoints.
