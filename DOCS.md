@@ -5,7 +5,7 @@
 ## What is this?
 Backend for a movie rating application.
 
-## What kind of features does it support?
+### What kind of features does it support?
 - User login, user profiles
 - Movie info search, movie info creation
 - Movie ratings created by users-- users create movie ratings, view ratings from themselves and others
@@ -14,7 +14,7 @@ Backend for a movie rating application.
 
 <!-- TODO: Diagram -->
 
-API use cases
+User actions and how they flow through the app
 - User search for movie to review (simple text) -> Movie service -> TMDB (cache data) -> DB
 - No movie match? User submits a new title (title, release year, description) -> Movie service (flag as user-created) -> DB
 - User submits review (user ID, movie ID, rating, details) -> Movie ratings service -> DB
@@ -52,7 +52,39 @@ What else did I consider?
 Note: I liked the idea of Rapid API-- they host a collection of APIs that devs can access, and they give devs a dashboard to manage their API subscriptions and usage. I would love to use this service for future projects!
 
 ### File structure
-<!-- TODO -->
+
+Having seen multiple monolith-to-microservice migrations in my tech career, I'm going to set up my baby service with separation of concerns already built in.
+
+I'm going to use Flask Blueprint to do this.
+
+So my file structure will end up looking something like this.
+Source: https://blog.ashutoshkrris.in/how-to-use-blueprints-to-organize-your-flask-apps
+
+```
+/thermondo-backend-coding-challenge
+├── /services
+│   ├── __init__.py
+│   ├── /users
+│   │   ├── /templates
+│   │   ├── /static
+│   │   └── routes.py
+│   ├── /user_profiles
+│   │   ├── /templates
+│   │   ├── /static
+│   │   └── routes.py
+│   ├── /movies
+│   │   ├── /templates
+│   │   ├── /static
+│   │   └── routes.py
+│   └── /movie_reviews
+|       ├── /templates
+|       ├── /static
+|       └── routes.py
+├── app.py
+├── /static
+└── /templates
+```
+
 
 
 
