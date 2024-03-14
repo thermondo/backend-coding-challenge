@@ -85,6 +85,12 @@ Source: https://blog.ashutoshkrris.in/how-to-use-blueprints-to-organize-your-fla
 └── /templates
 ```
 
+## App Setup
+
+<!-- These are just random notes right now -->
+
+I used pyenv to create a virtual env, it is called "tbcc-app".
+
 
 
 
