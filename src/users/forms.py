@@ -53,5 +53,5 @@ class RegisterForm(FlaskForm):
 
 class LoginForm(FlaskForm):
     username = StringField("Username", validators=[
-        DataRequired(), UsernameValidator(), Email()])
+        DataRequired(), UsernameValidator()])
     password = PasswordField("Password", validators=[DataRequired()])

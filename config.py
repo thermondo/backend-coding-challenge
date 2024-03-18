@@ -1,4 +1,5 @@
 from decouple import config
+import os
 
 DATABASE_URI = config("DATABASE_URL")
 if DATABASE_URI.startswith("postgres://"):
@@ -31,6 +32,7 @@ class TestingConfig(Config):
     SQLALCHEMY_DATABASE_URI = "sqlite:///testdb.sqlite"
     BCRYPT_LOG_ROUNDS = 1
     WTF_CSRF_ENABLED = False
+    TEST_DATABASE_FILE_PATH = "testdb.sqlite"
 
 
 class ProductionConfig(Config):

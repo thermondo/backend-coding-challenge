@@ -23,6 +23,7 @@ pyflakes==3.2.0
 python-decouple==3.8
 python-dotenv==1.0.1
 SQLAlchemy==2.0.28
+SQLAlchemy-Utils==0.41.1
 typing_extensions==4.10.0
 Werkzeug==3.0.1
 WTForms==3.1.2

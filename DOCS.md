@@ -18,6 +18,7 @@ User actions and how they flow through the app
 - User search for movie to review (simple text) -> Movie service -> TMDB (cache data) -> DB
 - No movie match? User submits a new title (title, release year, description) -> Movie service (flag as user-created) -> DB
 - User submits review (user ID, movie ID, rating, details) -> Movie ratings service -> DB
+    - User can search for a movie without login but must be logged in to review
 - User views profile (with movie ratings) -> User service -> Movie ratings service -> DB
 
 
