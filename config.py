@@ -17,6 +17,8 @@ class Config(object):
     WTF_CSRF_ENABLED = True
     DEBUG_TB_ENABLED = False
     DEBUG_TB_INTERCEPT_REDIRECTS = False
+    TMDB_API_KEY = config("TMDB_API_KEY", default="testkey")
+    TMDB_ACCESS_TOKEN = config("TMDB_ACCESS_TOKEN", default="test._token")
 
 
 class DevelopmentConfig(Config):

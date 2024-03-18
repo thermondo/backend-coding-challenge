@@ -2,6 +2,32 @@
 
 <!-- Temporary home for system design and API documentation -->
 
+## Setup
+
+This project has a `make` file that contains all the commands you should need.
+
+Run the server
+```
+$ make run-app
+```
+
+Run the tests
+```
+$ make run-tests
+```
+
+Run and apply migrations
+```
+$ make migrate-db
+```
+
+Run the python linter
+```
+$ make lint-py
+```
+
+---
+
 ## What is this?
 Backend for a movie rating application.
 

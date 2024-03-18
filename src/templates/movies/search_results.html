@@ -1,0 +1,29 @@
+<!-- This will be a list of search results -->
+{% extends "_base.html" %}
+
+{% block content %}
+
+<div class="row">
+  <div class="col-md-1"></div>
+  <div class="col-md-10">
+    <main class="form-signin w-100 m-auto">
+        <h1>Search results</h1>
+        {% for movie in search_results %}
+            <div>
+                <h3>{{movie.title}}</h3>
+                <div>
+                    <span>{{movie.release_date}}</span>
+                    <!-- Maybe a TMDB URL? -->
+                    <span>{{movie.tmdb_id}}</span>
+                </div>
+                <div>
+                    <p>{{movie.overview}}</p>
+                </div>
+            </div>
+        {% endfor %}
+    </main>
+  </div>
+  <div class="col-md-1"></div>
+</div>
+
+{% endblock %}
