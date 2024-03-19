@@ -1,0 +1,28 @@
+<!-- This will be a list of search results -->
+{% extends "_base.html" %}
+
+{% block content %}
+
+<div class="row">
+  <div class="col-md-1"></div>
+  <div class="col-md-4">
+      <img src="{{poster_url}}" class="img-fluid" alt="No Poster">
+  </div>
+  <div class="col-md-6">
+    <main class="form-signin w-100 m-auto">
+        <h1>{{movie.title}}</h1>
+        <div>
+            <span>Release date={{movie.release_date}}</span>
+            <!-- Maybe a TMDB URL? -->
+            <span>TMDB ID={{movie.tmdb_id}}</span>
+            <span>Our ID={{movie.id}}</span>
+        </div>
+        <div>
+            <p>{{movie.overview}}</p>
+        </div>
+    </main>
+  </div>
+  <div class="col-md-1"></div>
+</div>
+
+{% endblock %}

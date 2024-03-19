@@ -8,19 +8,24 @@
   <div class="col-md-10">
     <main class="form-signin w-100 m-auto">
         <h1>Search results</h1>
-        {% for movie in search_results %}
-            <div>
-                <h3>{{movie.title}}</h3>
+        {% if search_results %}
+            {% for movie in search_results %}
                 <div>
-                    <span>{{movie.release_date}}</span>
-                    <!-- Maybe a TMDB URL? -->
-                    <span>{{movie.tmdb_id}}</span>
+                    <h3><a href="/movies/{{movie.id}}">{{movie.title}}</a></h3>
+                    <div>
+                        <span>Release date={{movie.release_date}}</span>
+                        <!-- Maybe a TMDB URL? -->
+                        <span>TMDB ID={{movie.tmdb_id}}</span>
+                        <span>Our ID={{movie.id}}</span>
+                    </div>
+                    <div>
+                        <p>{{movie.overview}}</p>
+                    </div>
                 </div>
-                <div>
-                    <p>{{movie.overview}}</p>
-                </div>
-            </div>
-        {% endfor %}
+            {% endfor %}
+        {% else %}
+            <div>No search results!</div>
+        {% endif %}
     </main>
   </div>
   <div class="col-md-1"></div>

@@ -49,5 +49,5 @@ class TmdbIntegration:
 
     def get_poster_image_url(self, poster_path):
         image_url = ('https://media.themoviedb.org/'
-                     't/p/w300_and_h450_bestv2') + poster_path
+                     't/p/w300_and_h450_bestv2') + (poster_path or '')
         return image_url

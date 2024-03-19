@@ -47,6 +47,10 @@ class Movie(db.Model):
                 f"release_date {self.release_date}>")
 
     @classmethod
+    def get_by_id(cls, movie_id):
+        return db.session.get(cls, movie_id)
+
+    @classmethod
     def search_by_query_string(cls, query_string):
         """
         Search for movies given a query string IN OUR DB
