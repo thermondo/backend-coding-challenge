@@ -5,7 +5,7 @@ run-tests:
 migrate-db:
 	flask db migrate && flask db upgrade
 lint-py:
-	flake8 src/
+	flake8 src/ tests/
 lint-md:
 	markdownlint-cli2 '**/*.md'
 .PHONY: lint-md

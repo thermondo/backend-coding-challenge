@@ -3,12 +3,18 @@ import unittest
 
 from base_test import BaseTestCase
 from flask_login import current_user
+from sqlalchemy import select
 
-from src import bcrypt
+from src import bcrypt, db
 from src.users.models import User
 
 
 class TestUser(BaseTestCase):
+    def test_get_by_username(self):
+        existing_user = db.session.scalars(select(User).limit(1)).one()
+        user_from_username = User.get_by_username(existing_user.username)
+        self.assertTrue(user_from_username.id == existing_user.id)
+
     def test_user_registration(self):
         # Ensure user registration behaves correctly.
         with self.client:
@@ -27,7 +33,7 @@ class TestUser(BaseTestCase):
             self.assertTrue(user.id)
             self.assertTrue(user.email == "test@user.com")
 
-    def test_get_by_id(self):
+    def test_login(self):
         # Ensure id is correct for the current/logged in user
         with self.client:
             self.client.get("/logout", follow_redirects=True)

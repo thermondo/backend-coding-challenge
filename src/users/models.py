@@ -1,6 +1,5 @@
-from datetime import datetime
-
 from flask_login import UserMixin
+from sqlalchemy import select
 
 from src import bcrypt, db
 
@@ -22,3 +21,10 @@ class User(UserMixin, db.Model):
 
     def __repr__(self):
         return f"<username {self.username} email {self.email}>"
+
+    @classmethod
+    def get_by_username(cls, username: str):
+        result = db.session.scalars(
+            select(cls).where(cls.username == username)
+        ).one()
+        return result

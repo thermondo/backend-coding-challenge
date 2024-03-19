@@ -34,11 +34,12 @@ tmdb = TmdbIntegration(
 from src.users.views import users_bp  # noqa: E402
 from src.core.views import core_bp  # noqa: E402
 from src.movies.views import movies_bp  # noqa: E402
+from src.ratings.views import ratings_bp  # noqa: E402
 
 app.register_blueprint(users_bp)
 app.register_blueprint(core_bp)
 app.register_blueprint(movies_bp)
-
+app.register_blueprint(ratings_bp)
 
 # Callback to reload the user object after login(?)
 from src.users.models import User  # noqa: E402

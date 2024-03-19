@@ -1,0 +1,64 @@
+{% extends "_base.html" %}
+
+{% block content %}
+
+<div class="row">
+  <div class="col-md-4"></div>
+  <div class="col-md-4">
+    <main class="form-signin w-100 m-auto">
+      <form role="form" method="post" action="">
+        {{ form.csrf_token }}
+        <h1 class="h3 mb-3 fw-normal text-center">Write Your Movie Review</h1>
+
+        <div class="form-floating">
+          {{ form.username(placeholder="username", class="form-control mb-2") }}
+          {{ form.username.label }}
+            {% if form.username.errors %}
+              {% for error in form.username.errors %}
+                <div class="alert alert-danger" role="alert">
+                  {{ error }}
+                </div>
+              {% endfor %}
+            {% endif %}
+        </div>
+        <div class="form-floating">
+          {{ form.movie_id(placeholder="movie ID number", class="form-control mb-2") }}
+          {{ form.movie_id.label }}
+            {% if form.movie_id.errors %}
+              {% for error in form.movie_id.errors %}
+                <div class="alert alert-danger" role="alert">
+                  {{ error }}
+                </div>
+              {% endfor %}
+            {% endif %}
+        </div>
+        <div class="form-floating">
+          {{ form.rating_value(placeholder="rating from 1 to 5", class="form-control mb-2") }}
+          {{ form.rating_value.label }}
+            {% if form.rating_value.errors %}
+              {% for error in form.rating_value.errors %}
+                <div class="alert alert-danger" role="alert">
+                  {{ error }}
+                </div>
+              {% endfor %}
+            {% endif %}
+        </div>
+        <div class="form-floating">
+          {{ form.review(placeholder="Optional review: what did you think of the movie?", class="form-control mb-4", style="height: 100px") }}
+          {{ form.review.label }}
+            {% if form.review.errors %}
+              {% for error in form.review.errors %}
+                <div class="alert alert-danger" role="alert">
+                  {{ error }}
+                </div>
+              {% endfor %}
+            {% endif %}
+        </div>
+        <button class="w-100 btn btn-lg btn-primary" type="submit">Submit Your Rating</button>
+      </form>
+    </main>
+  </div>
+  <div class="col-md-4"></div>
+</div>
+
+{% endblock %}
