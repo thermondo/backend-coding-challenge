@@ -1,6 +1,8 @@
 from datetime import datetime
+from typing import List
 
 from sqlalchemy import select
+from sqlalchemy.orm import Mapped, relationship
 
 from src import db
 from src import tmdb
@@ -28,6 +30,11 @@ class Movie(db.Model):
     # find in our DB or through TMDB
     tmdb_id = db.Column(db.Integer, unique=True, nullable=True, index=True)
     # TODO: rating? Average rating? Cache TMDB rating stats?
+    ratings: Mapped[List["Rating"]] = relationship(  # noqa: F821
+        back_populates='movie', lazy='select')
+    # Let us sort by average rating and number of ratings
+    tmdb_vote_average = db.Column(db.Float)
+    tmdb_vote_count = db.Column(db.Integer)
 
     def __init__(
             self,
@@ -35,12 +42,17 @@ class Movie(db.Model):
             release_date: str,
             tmdb_id: int = 0,
             poster_path: str = '',
-            overview: str = ''):
+            overview: str = '',
+            tmdb_vote_average: int = 0,
+            tmdb_vote_count: int = 0,
+            ):
         self.tmdb_id = tmdb_id
         self.title = title
         self.release_date = release_date
         self.poster_path = poster_path
         self.overview = overview
+        self.tmdb_vote_average = tmdb_vote_average
+        self.tmdb_vote_count = tmdb_vote_count
 
     def __repr__(self):
         return (f"<id {self.id} tmdb_id {self.tmdb_id} title {self.title} "
@@ -49,6 +61,44 @@ class Movie(db.Model):
     @classmethod
     def get_by_id(cls, movie_id):
         return db.session.get(cls, movie_id)
+
+    @classmethod
+    def get_by_tmdb_id(cls, tmdb_id):
+        stmt = select(cls).where(cls.tmdb_id == tmdb_id)
+        return db.session.scalars(stmt).one_or_none()
+
+    @classmethod
+    def create_and_save(
+            cls,
+            title: str,
+            release_date: str,
+            tmdb_id: int = 0,
+            overview: str = ''):
+        tmdb_id = tmdb_id or None
+        tmdb_data = {}
+        if tmdb_id:
+            tmdb_data = tmdb.movie_details(tmdb_id)
+        if tmdb_data:
+            # Use TMDB data, not user data
+            new_movie = cls(
+                title=tmdb_data['title'],
+                release_date=tmdb_data['release_date'],
+                tmdb_id=tmdb_data['id'],
+                poster_path=tmdb_data['poster_path'],
+                overview=tmdb_data['overview'],
+                tmdb_vote_average=tmdb_data['vote_average'],
+                tmdb_vote_count=tmdb_data['vote_count'],
+            )
+        else:
+            # If there isn't a TMDB ID or the TMDB ID didn't return data
+            new_movie = cls(
+                title=title,
+                release_date=release_date,
+                tmdb_id=tmdb_id,
+                overview=overview)
+        db.session.add(new_movie)
+        db.session.commit()
+        return new_movie
 
     @classmethod
     def search_by_query_string(cls, query_string):
@@ -89,6 +139,8 @@ class Movie(db.Model):
                     release_date=movie_res['release_date'],
                     poster_path=movie_res['poster_path'],
                     overview=movie_res['overview'],
+                    tmdb_vote_average=movie_res['vote_average'],
+                    tmdb_vote_count=movie_res['vote_count'],
                 )
                 db.session.add(new_movie_obj)
                 db_objects.append(new_movie_obj)

@@ -58,3 +58,13 @@ def logout():
     logout_user()
     flash("You were logged out.", "success")
     return redirect(url_for("users.login"))
+
+
+@users_bp.route("/users/<username>", methods=["GET"])
+def show(username):
+    user = User.get_by_username(username)
+    if not user:
+        flash("No user with that username!", "danger")
+        return redirect(url_for("movies.search"))
+
+    return render_template("users/show.html", user=user)

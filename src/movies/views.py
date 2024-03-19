@@ -3,10 +3,23 @@ from flask import Blueprint, redirect, render_template, request, url_for
 from src import tmdb
 from src.movies.models import Movie
 
-from .forms import MovieSearchForm
+from .forms import MovieSearchForm, NewMovieForm
 
 
 movies_bp = Blueprint("movies", __name__)
+
+
+@movies_bp.route("/movies/new", methods=["GET", "POST"])
+def new():
+    form = NewMovieForm(request.form)
+    if form.validate_on_submit():
+        new_movie = Movie.create_and_save(
+            title=form.title.data,
+            release_date=form.release_date.data,
+            tmdb_id=form.tmdb_id.data,
+            overview=form.overview.data)
+        return redirect(url_for("movies.show", movie_id=new_movie.id))
+    return render_template("movies/new.html", form=form)
 
 
 @movies_bp.route("/movies/<movie_id>", methods=["GET"])
@@ -41,7 +54,8 @@ def search():
             results_by_id[tmdb_res.id] = tmdb_res
         merged_results = list(results_by_id.values())
         # Sorted by most recent movies first
-        merged_results.sort(key=lambda movie: movie.release_date, reverse=True)
+        rating_sort_key = lambda movie: (movie.tmdb_vote_average or 0) * (movie.tmdb_vote_count or 0)  # noqa: E501, E731
+        merged_results.sort(key=rating_sort_key, reverse=True)
         return render_template(
             "movies/search_results.html", search_results=merged_results)
 

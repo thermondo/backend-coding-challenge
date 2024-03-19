@@ -1,10 +1,13 @@
 from sqlalchemy import select
+from sqlalchemy import UniqueConstraint
+
+from sqlalchemy.orm import Mapped, relationship
 
 from src import db
 
 
 class Rating(db.Model):
-
+    __table_args__ = (UniqueConstraint('movie_id', 'user_id'), )
     __tablename__ = "ratings"
 
     id = db.Column(db.Integer, primary_key=True)
@@ -16,7 +19,10 @@ class Rating(db.Model):
         db.DateTime,
         nullable=False,
         default=db.func.now())
-    db.UniqueConstraint("movie_id", "user_id")
+    movie: Mapped["Movie"] = relationship(  # noqa: F821
+        back_populates='ratings', lazy='select')
+    user: Mapped["User"] = relationship(  # noqa: F821
+        back_populates='ratings', lazy='select')
 
     def __init__(
             self,

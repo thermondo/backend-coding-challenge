@@ -12,13 +12,35 @@
     <main class="form-signin w-100 m-auto">
         <h1>{{movie.title}}</h1>
         <div>
-            <span>Release date={{movie.release_date}}</span>
-            <!-- Maybe a TMDB URL? -->
-            <span>TMDB ID={{movie.tmdb_id}}</span>
-            <span>Our ID={{movie.id}}</span>
+            <span>Release date: {{movie.release_date}}</span>
+            <span><a href="https://www.themoviedb.org/movie/{{movie.tmdb_id}}">View on TMDB</a></span>
+            {% if movie.tmdb_vote_average %}
+                <span>Avg TMDB Rating: {{movie.tmdb_vote_average}}</span>
+                <span>Number of Ratings: {{movie.tmdb_vote_count}}</span>
+            {% endif %}
         </div>
         <div>
             <p>{{movie.overview}}</p>
+        </div>
+        <div class="row">
+            <div class="col-md-2"><h3>Ratings</h3></div>
+            <div class="col-md-4">
+                <a class="btn btn-primary" href="/ratings/new?movie_id={{movie.id}}" role="button">Create a new rating</a>
+            </div>
+        </div>
+        <div>
+          {% for rating in movie.ratings %}
+          <div>
+            <figure class="text-end">
+              <blockquote class="blockquote">
+                <p><span>{{rating.review}}</span><span><strong>{{rating.value}} / 5</strong></span></p>
+              </blockquote>
+              <figcaption class="blockquote-footer">
+                {{rating.user.username}}
+              </figcaption>
+            </figure>
+          </div>
+          {% endfor %}
         </div>
     </main>
   </div>

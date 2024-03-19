@@ -1,0 +1,42 @@
+<!-- User profile, shows ratings -->
+{% extends "_base.html" %}
+
+{% block content %}
+
+<div class="row">
+  <div class="col-md-1"></div>
+  <div class="col-md-10">
+    <main class="form-signin w-100 m-auto">
+        <div><h1>{{user.username}}'s Ratings and Reviews</h1></div>
+        {% for rating in user.ratings %}
+          <div class="row">
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-4">
+                  <img src="https://media.themoviedb.org/t/p/w300_and_h450_bestv2{{rating.movie.poster_path}}" class="img-fluid" alt="No Poster">
+                </div>
+                <div class="col-md-6">
+                  <h5><a href="/movies/{{rating.movie.id}}">{{rating.movie.title}}</a></h5>
+                  <div>{{rating.movie.release_date}}</div>
+                  <div>{{rating.movie.overview}}</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <figure class="text-end">
+                <blockquote class="blockquote">
+                  <p><span>{{rating.review}}</span> <span><strong>{{rating.value}} / 5</strong></span></p>
+                </blockquote>
+                <figcaption class="blockquote-footer">
+                  {{rating.user.username}}
+                </figcaption>
+              </figure>
+            </div>
+          </div>
+        {% endfor %}
+    </main>
+  </div>
+  <div class="col-md-1"></div>
+</div>
+
+{% endblock %}

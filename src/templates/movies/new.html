@@ -1,0 +1,66 @@
+<!-- This will be a form to create a new movie in the DB -->
+{% extends "_base.html" %}
+
+{% block content %}
+
+<div class="row">
+  <div class="col-md-4"></div>
+  <div class="col-md-4">
+    <main class="form-signin w-100 m-auto">
+      <form role="form" method="post" action="">
+        {{ form.csrf_token }}
+        <h1 class="h3 mb-3 fw-normal text-center">Add a movie to our database!</h1>
+
+        <div class="form-floating">
+          {{ form.title(placeholder="title", class="form-control mb-2") }}
+          {{ form.title.label }}
+            {% if form.title.errors %}
+              {% for error in form.title.errors %}
+                <div class="alert alert-danger" role="alert">
+                  {{ error }}
+                </div>
+              {% endfor %}
+            {% endif %}
+        </div>
+        <div class="form-floating">
+          {{ form.release_date(placeholder="Release Date YYYY-MM-DD", class="form-control mb-2") }}
+          {{ form.release_date.label }}
+            {% if form.release_date.errors %}
+              {% for error in form.release_date.errors %}
+                <div class="alert alert-danger" role="alert">
+                  {{ error }}
+                </div>
+              {% endfor %}
+            {% endif %}
+        </div>
+        <div class="form-floating">
+          {{ form.overview(placeholder="Optional overview: what did you think of the movie?", class="form-control mb-2", style="height: 100px") }}
+          {{ form.overview.label }}
+            {% if form.overview.errors %}
+              {% for error in form.overview.errors %}
+                <div class="alert alert-danger" role="alert">
+                  {{ error }}
+                </div>
+              {% endfor %}
+            {% endif %}
+        </div>
+        <div class="form-floating">
+          {{ form.tmdb_id(placeholder="Optional: TMDB ID number", class="form-control mb-2") }}
+          {{ form.tmdb_id.label }}
+            {% if form.tmdb_id.errors %}
+              {% for error in form.tmdb_id.errors %}
+                <div class="alert alert-danger" role="alert">
+                  {{ error }}
+                </div>
+              {% endfor %}
+            {% endif %}
+        </div>
+        <button class="w-100 btn btn-lg btn-primary" type="submit">Submit</button>
+      </form>
+    </main>
+  </div>
+  <div class="col-md-4"></div>
+</div>
+
+{% endblock %}
+

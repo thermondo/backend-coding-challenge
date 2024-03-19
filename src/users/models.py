@@ -1,5 +1,8 @@
+from typing import List
+
 from flask_login import UserMixin
 from sqlalchemy import select
+from sqlalchemy.orm import Mapped, relationship
 
 from src import bcrypt, db
 
@@ -13,6 +16,8 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String, unique=True, nullable=False)
     password = db.Column(db.String, nullable=False)
     created_at = db.Column(db.DateTime, nullable=False, default=db.func.now())
+    ratings: Mapped[List["Rating"]] = relationship(  # noqa: F821
+        back_populates='user', lazy='select')
 
     def __init__(self, username: str, password: str, email: str = ''):
         self.username = username
@@ -26,5 +31,5 @@ class User(UserMixin, db.Model):
     def get_by_username(cls, username: str):
         result = db.session.scalars(
             select(cls).where(cls.username == username)
-        ).one()
+        ).one_or_none()
         return result

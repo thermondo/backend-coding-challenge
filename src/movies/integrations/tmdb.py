@@ -48,6 +48,16 @@ class TmdbIntegration:
         return results
 
     def get_poster_image_url(self, poster_path):
-        image_url = ('https://media.themoviedb.org/'
-                     't/p/w300_and_h450_bestv2') + (poster_path or '')
+        image_url = ''
+        if poster_path:
+            image_url = ('https://media.themoviedb.org/'
+                         't/p/w300_and_h450_bestv2') + (poster_path or '')
         return image_url
+
+    def movie_details(self, tmdb_id, **api_args):
+        endpoint = f"search/movie/{tmdb_id}"
+        results = self.__call_api(endpoint, **api_args)
+        # If the request didn't find a movie, success will be exactly False
+        if results.get("success") == False:  # noqa: E712
+            return {}
+        return results

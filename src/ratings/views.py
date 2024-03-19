@@ -11,9 +11,10 @@ from .forms import RatingForm
 ratings_bp = Blueprint("ratings", __name__)
 
 
-@ratings_bp.route("/new-rating", methods=["GET", "POST"])
+@ratings_bp.route("/ratings/new", methods=["GET", "POST"])
 @login_required
 def new_rating():
+    movie_id = request.args.get('movie_id', None)
     form = RatingForm(request.form)
     if form.validate_on_submit():
         user_id = User.get_by_username(form.username.data).id
@@ -27,6 +28,6 @@ def new_rating():
 
         flash("Thanks for adding your rating!", "success")
 
-        return redirect(url_for("core.home"))
+        return redirect(url_for("movies.show", movie_id=movie_id))
 
     return render_template("ratings/add_rating.html", form=form)
