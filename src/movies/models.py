@@ -31,9 +31,9 @@ class Movie(db.Model):
 
     def __init__(
             self,
-            tmdb_id: int,
             title: str,
             release_date: str,
+            tmdb_id: int=0,
             poster_path: str='',
             overview: str=''):
         self.tmdb_id = tmdb_id
@@ -54,6 +54,9 @@ class Movie(db.Model):
         Right now, this only searches titles, but ideally it would search
         other attributes as well, like overview
         """
+        if not query_string:
+            raise ValueError("Query string cannot be empty")
+
         search_results = []
         # TODO: This is not safe and could be SQL-injected
         stmt = select(Movie).where(Movie.title.like(f'%{query_string}%'))
