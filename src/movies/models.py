@@ -33,9 +33,9 @@ class Movie(db.Model):
             self,
             title: str,
             release_date: str,
-            tmdb_id: int=0,
-            poster_path: str='',
-            overview: str=''):
+            tmdb_id: int = 0,
+            poster_path: str = '',
+            overview: str = ''):
         self.tmdb_id = tmdb_id
         self.title = title
         self.release_date = release_date
@@ -57,7 +57,6 @@ class Movie(db.Model):
         if not query_string:
             raise ValueError("Query string cannot be empty")
 
-        search_results = []
         # TODO: This is not safe and could be SQL-injected
         stmt = select(Movie).where(Movie.title.like(f'%{query_string}%'))
         results = db.session.scalars(stmt).all()
@@ -92,5 +91,3 @@ class Movie(db.Model):
         # Save new objects
         db.session.commit()
         return db_objects
-
-

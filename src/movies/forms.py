@@ -1,10 +1,6 @@
-import re
-
 from flask_wtf import FlaskForm
-from wtforms import StringField, EmailField, PasswordField, ValidationError
-from wtforms.validators import DataRequired, Email, EqualTo, Length
-
-from src.users.models import User
+from wtforms import StringField
+from wtforms.validators import Length
 
 
 class MovieSearchForm(FlaskForm):

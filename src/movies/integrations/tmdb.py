@@ -1,5 +1,7 @@
 # TMBD specific code will go here
-import requests, json
+import json
+import requests
+
 
 class TmdbIntegration:
     def __init__(self, api_key: str, access_token: str):
@@ -34,8 +36,8 @@ class TmdbIntegration:
         """
         Get movie search results from TMDB
 
-        There are many arguments to the TMDB API, so **api_args is a shortcut to
-        make them accessible for now.
+        There are many arguments to the TMDB API, so **api_args is a shortcut
+        to make them accessible for now.
         TODO: Make the params that we'll accept explicit
 
         Returns dict from JSON results
