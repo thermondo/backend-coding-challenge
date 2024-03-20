@@ -1,35 +1,7 @@
 # Documentation
 
-<!-- Temporary home for system design and API documentation -->
-
-## Setup
-
-This project has a `make` file that contains all the commands you should need.
-
-Run the server
-```
-$ make run-app
-```
-
-Run the tests
-```
-$ make run-tests
-```
-
-Run and apply migrations
-```
-$ make migrate-db
-```
-
-Run the python linter
-```
-$ make lint-py
-```
-
----
-
 ## What is this?
-Backend for a movie rating application.
+Simple movie rating application.
 
 ### What kind of features does it support?
 - User login, user profiles
@@ -42,19 +14,19 @@ Backend for a movie rating application.
 
 User actions and how they flow through the app
 - User search for movie to review (simple text) -> Movie service -> TMDB (cache data) -> DB
-- No movie match? User submits a new title (title, release year, description) -> Movie service (flag as user-created) -> DB
-- User submits review (user ID, movie ID, rating, details) -> Movie ratings service -> DB
-    - User can search for a movie without login but must be logged in to review
-- User views profile (with movie ratings) -> User service -> Movie ratings service -> DB
+- No movie match? User submits a new title (title, release year, description, TMDB ID) -> Movie service pulls data from, else creates the movie manually -> DB
+- User submits review (user ID, movie ID, rating (out of 5), review) -> Ratings service -> DB
+    - User can search for a movie without login but must be logged in to submit a rating
+- User views profile (with movie ratings) -> User service -> DB : Users model has a one-to-many relationship with Ratings
 
 
 ### Core data entities
-- Users (authentication)
-- Movies (UUID, title, release date, description, maybe )
-- Movie ratings (users x movies)
+- Users (authentication), see [src/users/models.py](src/users/models.py)
+- Movies (UUID, title, release date, overview, tmdb_id, etc.), see [src/movies/models.py](src/movies/models.py)
+- Ratings (users x movies), see [src/ratings/models.py](src/ratings/models.py)
 
-Other data entities
-- User Profiles (maybe real name, bio, photo, etc.)
+<!-- Diagram here -->
+
 
 ## External Integrations
 - External movie database API: TMDB
@@ -84,8 +56,9 @@ Having seen multiple monolith-to-microservice migrations in my tech career, I'm 
 
 I'm going to use Flask Blueprint to do this.
 
-So my file structure will end up looking something like this.
-Source: https://blog.ashutoshkrris.in/how-to-use-blueprints-to-organize-your-flask-apps
+So my file structure will (hopefully, if I have time) end up looking something like this.
+
+TODO Note: I ran out of time to really clean up the file structure, but this was my aspiration:
 
 ```
 /thermondo-backend-coding-challenge
@@ -104,20 +77,39 @@ Source: https://blog.ashutoshkrris.in/how-to-use-blueprints-to-organize-your-fla
 │   │   ├── /static
 │   │   └── routes.py
 │   └── /movie_reviews
-|       ├── /templates
-|       ├── /static
-|       └── routes.py
+│       ├── /templates
+│       ├── /static
+│       └── routes.py
 ├── app.py
 ├── /static
-└── /templates
+├── /templates
+└── /migrations
 ```
 
-## App Setup
+## Setup and Utilities
 
-<!-- These are just random notes right now -->
+_This is also documented in the README_
 
-I used pyenv to create a virtual env, it is called "tbcc-app".
+This project has a `make` file that contains all the commands you should need.
 
+Run the server
+```
+$ make run-app
+```
 
+Run the tests
+```
+$ make run-tests
+```
+
+Run and apply migrations
+```
+$ make migrate-db
+```
+
+Run the python linter
+```
+$ make lint-py
+```
 
 
