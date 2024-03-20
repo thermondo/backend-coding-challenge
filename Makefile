@@ -1,3 +1,6 @@
+all: run-app run-tests migrate-db lint-py lint-md
+.PHONY: all
+
 run-app:
 	source .env && python manage.py run --port=5001
 run-tests:
@@ -8,4 +11,3 @@ lint-py:
 	flake8 src/ tests/
 lint-md:
 	markdownlint-cli2 '**/*.md'
-.PHONY: lint-md
