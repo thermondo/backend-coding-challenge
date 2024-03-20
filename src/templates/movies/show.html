@@ -36,7 +36,7 @@
                 <p><span>{{rating.review}}</span><span><strong>{{rating.value}} / 5</strong></span></p>
               </blockquote>
               <figcaption class="blockquote-footer">
-                {{rating.user.username}}
+                <a href="{{ url_for('users.show', username=rating.user.username) }}">{{rating.user.username}}</a>
               </figcaption>
             </figure>
           </div>

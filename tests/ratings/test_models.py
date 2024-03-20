@@ -36,7 +36,7 @@ class TestRating(BaseTestCase):
 
     def test_get_all_by_movie(self):
         existing_rating = db.session.scalars(
-            select(Rating).order_by(Rating.id.desc())
+            select(Rating).order_by(Rating.id.desc()).limit(1)
         ).one()
         ratings_from_movie = Rating.get_all_by_movie(existing_rating.movie_id)
         self.assertTrue(len(ratings_from_movie) > 0)
@@ -45,7 +45,7 @@ class TestRating(BaseTestCase):
 
     def test_get_all_by_user(self):
         existing_rating = db.session.scalars(
-            select(Rating).order_by(Rating.id.desc())
+            select(Rating).order_by(Rating.id.desc()).limit(1)
         ).one()
         ratings_from_user = Rating.get_all_by_user(existing_rating.user_id)
         self.assertTrue(len(ratings_from_user) > 0)

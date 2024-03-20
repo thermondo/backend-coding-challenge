@@ -60,6 +60,16 @@ def logout():
     return redirect(url_for("users.login"))
 
 
+@users_bp.route("/current_user")
+@login_required
+def show_current_user():
+    if not current_user.is_authenticated:
+        flash("You must be logged in to view that page!", "danger")
+        return redirect(url_for("movies.search"))
+    else:
+        return redirect(url_for("users.show", username=current_user.username))
+
+
 @users_bp.route("/users/<username>", methods=["GET"])
 def show(username):
     user = User.get_by_username(username)

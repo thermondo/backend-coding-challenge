@@ -1,4 +1,5 @@
-from flask import Blueprint, redirect, render_template, request, url_for
+from flask import Blueprint, flash, redirect, render_template, request, url_for
+from flask_login import current_user, login_required
 
 from src import tmdb
 from src.movies.models import Movie
@@ -10,7 +11,12 @@ movies_bp = Blueprint("movies", __name__)
 
 
 @movies_bp.route("/movies/new", methods=["GET", "POST"])
+@login_required
 def new():
+    if not current_user.is_authenticated:
+        flash(
+            "You must be logged in to add a movie to our database!", "danger")
+        return redirect(url_for("users.login"))
     form = NewMovieForm(request.form)
     if form.validate_on_submit():
         new_movie = Movie.create_and_save(

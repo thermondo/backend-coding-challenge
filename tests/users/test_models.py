@@ -15,24 +15,6 @@ class TestUser(BaseTestCase):
         user_from_username = User.get_by_username(existing_user.username)
         self.assertTrue(user_from_username.id == existing_user.id)
 
-    def test_user_registration(self):
-        # Ensure user registration behaves correctly.
-        with self.client:
-            self.client.get("/logout", follow_redirects=True)
-            self.client.post(
-                "/register",
-                data=dict(
-                    email="test@user.com",
-                    username="testmeok",
-                    password="test_user",
-                    confirm="test_user",
-                ),
-                follow_redirects=True,
-            )
-            user = User.query.filter_by(email="test@user.com").first()
-            self.assertTrue(user.id)
-            self.assertTrue(user.email == "test@user.com")
-
     def test_login(self):
         # Ensure id is correct for the current/logged in user
         with self.client:

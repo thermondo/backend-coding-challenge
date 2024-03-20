@@ -28,6 +28,7 @@ def new_rating():
 
         flash("Thanks for adding your rating!", "success")
 
-        return redirect(url_for("movies.show", movie_id=movie_id))
+        return redirect(url_for("movies.show", movie_id=form.movie_id.data))
 
-    return render_template("ratings/add_rating.html", form=form)
+    return render_template(
+        "ratings/add_rating.html", form=form, movie_id=movie_id)

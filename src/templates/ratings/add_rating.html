@@ -11,7 +11,7 @@
         <h1 class="h3 mb-3 fw-normal text-center">Write Your Movie Review</h1>
 
         <div class="form-floating">
-          {{ form.username(placeholder="username", class="form-control mb-2") }}
+          {{ form.username(placeholder="username", class="form-control mb-2", value=current_user.username) }}
           {{ form.username.label }}
             {% if form.username.errors %}
               {% for error in form.username.errors %}
@@ -22,7 +22,7 @@
             {% endif %}
         </div>
         <div class="form-floating">
-          {{ form.movie_id(placeholder="movie ID number", class="form-control mb-2") }}
+          {{ form.movie_id(placeholder="movie ID number", class="form-control mb-2", value=movie_id) }}
           {{ form.movie_id.label }}
             {% if form.movie_id.errors %}
               {% for error in form.movie_id.errors %}

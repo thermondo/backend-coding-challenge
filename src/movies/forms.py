@@ -33,7 +33,8 @@ class NewMovieForm(FlaskForm):
     release_date = StringField(
         "Release Date YYYY-MM-DD",
         validators=[DataRequired(), ReleaseDateValidator()])
-    overview = TextAreaField("Optional: Movie overview")
+    overview = TextAreaField(
+        "Optional: Movie overview", validators=[Optional()])
     # TODO: Would it be better for this to be a URL?
     tmdb_id = IntegerField("Optional: TMDB ID", validators=[Optional()])
 

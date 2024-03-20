@@ -182,3 +182,99 @@ search_response_dict = {
   "total_pages": 69,
   "total_results": 1375
 }
+
+
+movie_details_no_results_dict = {
+  "success": False,
+  "status_code": 34,
+  "status_message": "The resource you requested could not be found."
+}
+
+
+movie_details_dict = {
+  "adult": False,
+  "backdrop_path": "/mExN6lJHmLeGjwDmDrNNjR4MdCq.jpg",
+  "belongs_to_collection": {
+    "id": 77816,
+    "name": "Kung Fu Panda Collection",
+    "poster_path": "/2QT6PuYXY0T2Ry9rX0JKQYTrbwx.jpg",
+    "backdrop_path": "/uDosHOFFWtF5YteBRygHALFqLw2.jpg"
+  },
+  "budget": 85000000,
+  "genres": [
+    {
+      "id": 28,
+      "name": "Action"
+    },
+    {
+      "id": 12,
+      "name": "Adventure"
+    },
+    {
+      "id": 16,
+      "name": "Animation"
+    },
+    {
+      "id": 35,
+      "name": "Comedy"
+    },
+    {
+      "id": 10751,
+      "name": "Family"
+    }
+  ],
+  "homepage": "https://www.dreamworks.com/movies/kung-fu-panda-4",
+  "id": 1011985,
+  "imdb_id": "tt21692408",
+  "original_language": "en",
+  "original_title": "Kung Fu Panda 4",
+  "overview": "Po is gearing up to become the spiritual leader of his Valley of Peace, but also needs someone to take his place as Dragon Warrior. As such, he will train a new kung fu practitioner for the spot and will encounter a villain called the Chameleon who conjures villains from the past.",
+  "popularity": 6623.028,
+  "poster_path": "/wkfG7DaExmcVsGLR4kLouMwxeT5.jpg",
+  "production_companies": [
+    {
+      "id": 521,
+      "logo_path": "/kP7t6RwGz2AvvTkvnI1uteEwHet.png",
+      "name": "DreamWorks Animation",
+      "origin_country": "US"
+    },
+    {
+      "id": 33,
+      "logo_path": "/8lvHyhjr8oUKOOy2dKXoALWKdp0.png",
+      "name": "Universal Pictures",
+      "origin_country": "US"
+    },
+    {
+      "id": 214225,
+      "logo_path": None,
+      "name": "Pearl Studio",
+      "origin_country": "CN"
+    }
+  ],
+  "production_countries": [
+    {
+      "iso_3166_1": "CN",
+      "name": "China"
+    },
+    {
+      "iso_3166_1": "US",
+      "name": "United States of America"
+    }
+  ],
+  "release_date": "2024-03-02",
+  "revenue": 176000000,
+  "runtime": 94,
+  "spoken_languages": [
+    {
+      "english_name": "English",
+      "iso_639_1": "en",
+      "name": "English"
+    }
+  ],
+  "status": "Released",
+  "tagline": "",
+  "title": "Kung Fu Panda 4",
+  "video": False,
+  "vote_average": 6.897,
+  "vote_count": 190
+}

@@ -24,7 +24,7 @@ class RatingForm(FlaskForm):
         # TODO: Validate that the user is logged in
         user = User.get_by_username(self.username.data)
         if not user:
-            self.user_id.errors.append("User does not exist")
+            self.username.errors.append("User does not exist")
             return False
         movie = db.session.get(Movie, self.movie_id.data)
         if not movie:
