@@ -8,3 +8,5 @@ services/auth-service/node_modules
 services/auth-service/dist
 services/movie-service/node_modules
 services/movie-service/dist
+services/rating-service/node_modules
+services/rating-service/dist
