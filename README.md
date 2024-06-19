@@ -12,6 +12,17 @@ to systems design!**
 you are most comfortable with and those that will showcase your strongest
 performance. 💪**
 
+## 🗒️ Running the solution:
+
+To run the solution:
+
+- go to the root folder:
+
+```
+docker compose build
+docker compose up -d
+```
+
 ## ✅ Requirements
 
 - [✅] The backend should expose RESTful endpoints to handle user input and
@@ -61,6 +72,19 @@ performance. 💪**
   requirements.
 - Remember to approach the challenge as you would a real-world project, focusing
   on scalability, performance, and reliability.
+
+## 🗒️ TODO
+
+- Apply the logging guidelines to all the services as already applied in (Auth Service).
+- Add all unit tests for all the services as already applied in (Auth Service).
+- Update the Apis Documentation for all services to have more information about the data transfer
+  objects and more information about the errors.
+- Apply caching to more endpoints like Get All Movies.
+- Add Access levels to the user like admin (Authorization)
+- Add prehook command to add check linting rules and all tests are passed before committing
+- update CI/CD pipelines to checking for the tests (coverage and passed) + required approvals
+- Add helm for k8s deployment.
+- Add api gateway service
 
 ## 🤔 What if I don't finish?
 
