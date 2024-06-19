@@ -2,3 +2,5 @@
 .idea
 out
 *.iml
+services/user-service/node_modules
+services/user-service/dist
