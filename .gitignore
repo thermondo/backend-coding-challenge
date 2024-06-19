@@ -6,3 +6,5 @@ services/user-service/node_modules
 services/user-service/dist
 services/auth-service/node_modules
 services/auth-service/dist
+services/movie-service/node_modules
+services/movie-service/dist

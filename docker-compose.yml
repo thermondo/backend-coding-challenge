@@ -23,9 +23,29 @@ services:
       - NODE_ENV=production # Example environment variable
       - JWT_SECRET='c2VjcmV0X2tleV9zdWJqZWN0X2tleV9zZWNyZXQ='
       - USER_SERVICE_URL=http://user_service:3000
+  movie_service:
+    build:
+      context: ./services/movie-service
+    ports:
+      - "3002:3000"
+    depends_on:
+      - movie_db
+    environment:
+      - NODE_ENV=production
+      - DB_URL=mongodb://movie_db:27017/movie_db
+      - JWT_SECRET='c2VjcmV0X2tleV9zdWJqZWN0X2tleV9zZWNyZXQ='
+      - REDIS_HOST=redis_cache
+      - REDIS_PORT=6379
+      - AUTH_SERVICE_URL=http://auth_service:3000
   user_db:
     image: mongo:latest
     environment:
       MONGO_INITDB_DATABASE: user_db
     ports:
       - "27017:27017"
+  movie_db:
+    image: mongo:latest
+    environment:
+      MONGO_INITDB_DATABASE: movie_db
+    ports:
+      - "27018:27017"
