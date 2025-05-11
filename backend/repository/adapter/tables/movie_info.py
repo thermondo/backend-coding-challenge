@@ -1,8 +1,6 @@
-from psycopg2.sql import DEFAULT
 from sqlalchemy import Boolean, Column, String, BigInteger
 
-from repository.adapter.tables.abanos_table import BaseTable
-from repository.adapter.tables.fields.passwordField import Password
+from repository.adapter.tables.base_table import BaseTable
 
 movie_info_table = BaseTable(
 	'movie_info',

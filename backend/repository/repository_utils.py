@@ -9,11 +9,10 @@ from sqlalchemy import (
 	update,
 )
 
-from sqlalchemy.sql.dml import Insert, Update
 from sqlalchemy.sql import Select, Subquery
 from sqlalchemy.sql import label
 
-from repository.adapter.tables.abanos_table import BaseTable
+from repository.adapter.tables.base_table import BaseTable
 
 
 def update_table_rows(table: BaseTable, values: Dict[str, Any]) -> update:
@@ -74,6 +73,11 @@ def json_column(
 	aggregate_result: bool = False,
 	alias: str = 'json_object',
 ):
+	"""
+	Retrieve the json column function call to be used in the select statement
+
+	"""
+
 	def _resolve_json_object_column() -> func:
 		items = json_object.items()
 		json_build_object_column = func.json_build_object(

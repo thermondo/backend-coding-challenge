@@ -1,4 +1,4 @@
-from typing import List, Optional
+from typing import Optional
 
 from sqlalchemy import orm
 
@@ -19,41 +19,66 @@ from repository.sqlalchemy_repository.user_info.queries import (
 
 class SQLAlchemyUserInfoRepository(UserInfoRepository):
 	def __init__(self, session: orm.Session):
+		"""
+		Initialize the repository with a SQLAlchemy session.
+
+		Parameters:
+		    session (orm.Session): SQLAlchemy session object for database interactions.
+		"""
 		self._session = session
 
 	def create_user(self, request: CreateUserInfoRequest) -> UserInfoModel:
-		insert = insert_user_info(request)
-		result = self._session.execute(insert).first()
+		"""
+		Create a new user entry in the database.
+
+		Parameters:
+		    request (CreateUserInfoRequest): The request object containing user details.
+
+		Returns:
+		    UserInfoModel: The created UserInfoModel object.
+
+		Raises:
+		    ValueError: If the user creation fails.
+		"""
+		insert_stmt = insert_user_info(request)
+		result = self._session.execute(insert_stmt).first()
 		if result:
 			return to_user_info(result[0])
-		raise ValueError('error while creating user info object')
-
-	def select_users(self) -> List[UserInfoModel]:
-		select = select_user_info_as_json()
-		result = self._session.execute(select)
-		if result:
-			return [to_user_info(row[0]) for row in result]
-		return []
+		raise ValueError('Error while creating user info object')
 
 	def select_user(self, user_id: int) -> Optional[UserInfoModel]:
-		select = select_user_info_as_json().where(user_info_table.columns.id == user_id)
-		result = self._session.execute(select).first()
-		if result:
-			return to_user_info(result[0])
-		return None
+		"""
+		Retrieve a specific user record by its ID.
 
-	def select_user_by_name(self, name: str) -> Optional[UserInfoModel]:
-		select = select_user_info_as_json().where(user_info_table.columns.name == name)
-		result = self._session.execute(select).first()
+		Parameters:
+		    user_id (int): The ID of the user to retrieve.
+
+		Returns:
+		    Optional[UserInfoModel]: The UserInfoModel object if found, otherwise None.
+		"""
+		select_stmt = select_user_info_as_json().where(user_info_table.columns.id == user_id)
+		result = self._session.execute(select_stmt).first()
 		if result:
 			return to_user_info(result[0])
 		return None
 
 	def update_user(self, request: UpdateUserInfoRequest) -> Optional[UserInfoModel]:
-		update = update_user_info(request).where(user_info_table.columns.id == request.id)
-		if update is not None:
-			result = self._session.execute(update).first()
+		"""
+		Update an existing user entry in the database.
+
+		Parameters:
+		    request (UpdateUserInfoRequest): The update object containing user details to be updated.
+
+		Returns:
+		    Optional[UserInfoModel]: The updated UserInfoModel object if successful, otherwise None.
+
+		Raises:
+		    ValueError: If the user update fails.
+		"""
+		update_stmt = update_user_info(request).where(user_info_table.columns.id == request.id)
+		if update_stmt is not None:
+			result = self._session.execute(update_stmt).first()
 			if result:
 				return to_user_info(result[0])
-			raise ValueError('error while updating user info')
+			raise ValueError('Error while updating user info')
 		return self.select_user(request.id)
