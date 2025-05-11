@@ -9,19 +9,19 @@ from api.models.response_models.user_info_response import UserResponse
 
 
 class RatingInfoResponse(BaseResponseModel):
-	id: int
-	rating: int
-	movie_info: Dict
-	review: Optional[str] = None
-	user_info: Optional[Dict] = None
+    id: int
+    rating: int
+    movie_info: Dict
+    review: Optional[str] = None
+    user_info: Optional[Dict] = None
 
 
 class RatingReportResponse(BaseResponseModel):
-	id: int
-	rating: int
-	movie_info: Dict
+    id: int
+    rating: int
+    movie_info: Dict
 
 
 class RatingsInfoResponse(BaseResponseModel):
-	ratings: List[RatingInfoResponse]
-	total_count: int = 0
+    ratings: List[RatingInfoResponse]
+    total_count: int = 0

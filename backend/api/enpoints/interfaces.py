@@ -4,5 +4,5 @@ from fastapi import APIRouter
 
 
 class EndPoint(ABC):
-	def router(self) -> APIRouter:
-		raise NotImplementedError
+    def router(self) -> APIRouter:
+        raise NotImplementedError
