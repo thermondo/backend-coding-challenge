@@ -1,0 +1,175 @@
+name: Backend CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  format_check:
+    name: Check Code Formatting
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+
+      - name: Install Poetry
+        run: |
+          curl -sSL https://install.python-poetry.org | python3 -
+          export PATH="$HOME/.local/bin:$PATH"
+
+      - name: Install dependencies with Poetry
+        run: |
+          cd backend/
+          poetry install
+
+      - name: Check format on API
+        id: api_format
+        continue-on-error: true
+        run: |
+          cd backend/
+          poetry run black --check api/
+
+      - name: Check format on domain_model
+        id: domain_models_format
+        continue-on-error: true
+        run: |
+          cd backend/
+          poetry run black --check domain_models/ 
+
+      - name: Check format on repository
+        id: repo_format
+        continue-on-error: true
+        run: |
+          cd backend/
+          poetry run black --check repository/
+
+      - name: Check Formatting Outcomes
+        if: steps.repo_format.outcome == 'failure' || steps.api_format.outcome == 'failure' || steps.domain_models_format.outcome == 'failure'
+        run: |
+          echo "🚨 One or more checks failed!"
+          if [ "${{ steps.domain_models_format.outcome }}" == "failure" ]; then
+            echo "❌ Domain models formatting failed, please refer to the log and check the errors."
+          fi
+          if [ "${{ steps.api_format.outcome }}" == "failure" ]; then
+            echo "❌ API linting formatting, please refer to the log and check the errors."
+          fi
+          if [ "${{ steps.repo_format.outcome }}" == "failure" ]; then
+            echo "❌ Repositoy linting formatting, please refer to the log and check the errors."
+          fi
+          exit 1
+      
+
+  lint_check:
+    name: Run Lint Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+
+      - name: Install Poetry
+        run: |
+          curl -sSL https://install.python-poetry.org | python3 -
+          export PATH="$HOME/.local/bin:$PATH"
+
+      - name: Install dependencies with Poetry
+        run: |
+          cd backend/
+          poetry install
+
+      - name: Run Ruff lint check on API
+        id: api_lint
+        continue-on-error: true
+        run: |
+          cd backend/
+          poetry run ruff check api/ --config ruff.toml
+
+      - name: Run Ruff lint check on domain_model
+        id: domain_models_lint
+        continue-on-error: true
+        run: |
+          cd backend/
+          poetry run ruff check domain_model/ --config ruff.toml
+
+      - name: Run Ruff lint check on repository
+        id: repo_lint
+        continue-on-error: true
+        run: |
+          cd backend/
+          poetry run ruff check repository/ --config ruff.toml
+
+      - name: Check Linting Outcomes
+        if: steps.repo_lint.outcome == 'failure' || steps.api_lint.outcome == 'failure' || steps.domain_models_lint.outcome == 'failure'
+        run: |
+          echo "🚨 One or more checks failed!"
+          if [ "${{ steps.domain_models_lint.outcome }}" == "failure" ]; then
+            echo "❌ Domain models linting failed, please refer to the log and check the errors."
+          fi
+          if [ "${{ steps.api_lint.outcome }}" == "failure" ]; then
+            echo "❌ API linting failed, please refer to the log and check the errors."
+          fi
+          if [ "${{ steps.repo_lint.outcome }}" == "failure" ]; then
+            echo "❌ Repositoy linting failed, please refer to the log and check the errors."
+          fi
+          exit 1
+
+  test_check:
+    name: Run Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+
+      - name: Install Poetry
+        run: |
+          curl -sSL https://install.python-poetry.org | python3 -
+          export PATH="$HOME/.local/bin:$PATH"
+
+      - name: Install dependencies with Poetry
+        run: |
+          cd backend/
+          poetry install
+
+      - name: Run tests on API
+        id: api_tests
+        continue-on-error: true
+        run: |
+          cd backend/
+          poetry run pytest api/
+
+      - name: Run tests on repository
+        id: repo_tests
+        continue-on-error: true
+        run: |
+          cd backend/
+          poetry run pytest repository/
+
+      - name: Check testing Outcomes
+        if: steps.repo_tests.outcome == 'failure' || steps.repo_tests.outcome == 'failure'
+        run: |
+          echo "🚨 One or more checks failed!"
+          if [ "${{ steps.repo_tests.outcome }}" == "failure" ]; then
+            echo "❌ Repository tests failed, please refer to the log and check the failed tests."
+          fi
+          if [ "${{ steps.api_tests.outcome }}" == "failure" ]; then
+            echo "❌ API tests failed, please refer to the log and check the failed tests."
+          fi
+          exit 1
