@@ -1,6 +1,6 @@
 from sqlalchemy import Boolean, Column, String, ForeignKey, Integer
 
-from repository.adapter.tables.abanos_table import BaseTable
+from repository.adapter.tables.base_table import BaseTable
 from repository.adapter.tables.movie_info import movie_info_table
 from repository.adapter.tables.user_info import user_info_table
 

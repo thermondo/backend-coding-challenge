@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, ForeignKey, Numeric
 
-from repository.adapter.tables.abanos_table import BaseTable
+from repository.adapter.tables.base_table import BaseTable
 from repository.adapter.tables.movie_info import movie_info_table
 
 rating_report_table = BaseTable(

@@ -186,7 +186,7 @@ poetry env activate
 poetry install
 ```
 2. Start PostgreSQL and Redis:
-- Start your PostgreSQL service and ensure a database named movie exists. 
+- Start your PostgreSQL service and ensure a database named `movie` exists. 
 - Start Redis (default port 6379).
 3. Ensure the database url and redis url are correctly set in `backend/.env`
 4. Run the FastAPI app (ensure you are in backend directory):
@@ -194,5 +194,18 @@ poetry install
 python server.py 
 ```
 ## 📝 To-Do List
-Pending features and potential improvements.
+![Alt Text](assets/enhanced_system_design.jpg)
+
+1. Incorporating a **Producer-Consumer Architecture** into the system allows for efficient offloading of report generation and average rating calculations to the background. 
+   - By leveraging this pattern, the **producer** (such as the movie rating submission system) can quickly place tasks (e.g., report generation, average rating calculation) into a **task queue** (like RabbitMQ), while the **consumer** (a separate worker service) processes these tasks asynchronously. 
+   - This design allows the system to continue handling incoming requests without being blocked by the time-consuming calculations or report generation. As a result, it enhances the **availability** of the system by ensuring that the user-facing components are not delayed by background operations. 
+   - Additionally, by **updating the database** in the background, the system can maintain real-time data while still offloading intensive operations to dedicated workers, improving overall **scalability** and **performance**.
+
+2. While you are already utilizing **FastAPI** and **Pydantic** for schema validation, further enhancements can be made by incorporating more granular validation schemas. 
+   
+3. To follow the principles of **Clean Architecture** more closely, consider moving the logic from your endpoint handlers into a **Presenter Layer**. 
+   
+4. While your current system is API-based, I considered extending it by creating a **mini UI application** that interacts with your API. so the project structure has `backend` and `frontend` subfolders 
+   
+5. For **consistent testing**, it's important to have a separate **test environment** where the Redis service runs on a different port and doesn’t interfere with the production system. 
 
