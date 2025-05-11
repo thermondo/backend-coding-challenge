@@ -1,0 +1,82 @@
+version: "3.9"
+
+services:
+  rabbit-mq-broker:
+    hostname: "movie-rating-rabbit"
+    container_name: rabbit-mq-broker
+    build:
+      context: .
+      dockerfile: deployment/mq.dockerfile
+    deploy:
+      restart_policy:
+        condition: on-failure
+        max_attempts: 3
+    ports:
+      - "5674:5674"
+      - "15674:15674"
+    networks:
+      - main
+ 
+  postgres-db:
+    container_name: postgres-database
+    hostname: "movie-db"
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER: "admin"
+      POSTGRES_PASSWORD: "admin"
+      POSTGRES_DB: "movie"
+    volumes:
+      - pgdata:/var/lib/postgresql/pgdata
+    ports:
+      - "5434:5434"
+    deploy:
+      restart_policy:
+        condition: on-failure
+        max_attempts: 3
+    command: -p 5434
+    networks:
+      - main
+
+  redis:
+    container_name: redis-cache
+    image: redis:7-alpine
+    hostname: "movie-redis"
+    ports:
+      - "6379:6379"
+    deploy:
+      restart_policy:
+        condition: on-failure
+        max_attempts: 3
+    networks:
+      - main
+
+  server:
+    container_name: server
+    hostname: server
+    build:
+      context: .
+      dockerfile: deployment/server.dockerfile
+    environment:
+      BROKER_URL: "amqp://abanos:abanos@1418@movie-rating-rabbit:5674"
+      DATABASE_URI: "postgresql://admin:admin@movie-db:5434/movie"
+      SECRET_KEY: "09d25e094faa6ca2556c818166b7a9563b93f7099f6f0f4caa6cf63b88e8d3e7"
+      ALGORITHM : "HS256"
+      ACCESS_TOKEN_EXPIRE_MINUTES: "220"
+      REDIS_URL: "redis://movie-redis:6379"
+
+    volumes:
+      - .:/app
+    command: python -m server
+    ports:
+      - "50050:50050"
+    networks:
+      - main
+    depends_on:
+      - rabbit-mq-broker
+      - postgres-db
+      - redis
+
+networks:
+  main:
+volumes:
+  pgdata:

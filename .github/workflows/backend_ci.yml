@@ -36,21 +36,21 @@ jobs:
         continue-on-error: true
         run: |
           cd backend/
-          poetry run black --check api/
+          poetry run ruff format --check api/
 
       - name: Check format on domain_model
         id: domain_models_format
         continue-on-error: true
         run: |
           cd backend/
-          poetry run black --check domain_models/ 
+          poetry run ruff format --check domain_models/ 
 
       - name: Check format on repository
         id: repo_format
         continue-on-error: true
         run: |
           cd backend/
-          poetry run black --check repository/
+          poetry run ruff format --check repository/
 
       - name: Check Formatting Outcomes
         if: steps.repo_format.outcome == 'failure' || steps.api_format.outcome == 'failure' || steps.domain_models_format.outcome == 'failure'
@@ -70,6 +70,7 @@ jobs:
 
   lint_check:
     name: Run Lint Check
+    needs: format_check
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -102,7 +103,7 @@ jobs:
         continue-on-error: true
         run: |
           cd backend/
-          poetry run ruff check domain_model/ --config ruff.toml
+          poetry run ruff check domain_models/ --config ruff.toml
 
       - name: Run Ruff lint check on repository
         id: repo_lint
@@ -128,7 +129,26 @@ jobs:
 
   test_check:
     name: Run Tests
+    needs: lint_check
     runs-on: ubuntu-latest
+    services:
+      redis:
+        image: redis:latest
+        ports:
+          - 6379:6379
+      postgres:
+        image: postgres:13
+        ports:
+          - 5434:5432
+        env:
+          POSTGRES_DB: movie
+          POSTGRES_USER: admin
+          POSTGRES_PASSWORD: admin
+        options: >-
+          --health-cmd="pg_isready -U user -d movie" 
+          --health-interval=10s 
+          --health-timeout=5s 
+          --health-retries=5
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -163,7 +183,7 @@ jobs:
           poetry run pytest repository/
 
       - name: Check testing Outcomes
-        if: steps.repo_tests.outcome == 'failure' || steps.repo_tests.outcome == 'failure'
+        if: steps.repo_tests.outcome == 'failure' || steps.api_tests.outcome == 'failure'
         run: |
           echo "🚨 One or more checks failed!"
           if [ "${{ steps.repo_tests.outcome }}" == "failure" ]; then
