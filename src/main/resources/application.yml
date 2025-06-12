@@ -1,0 +1,39 @@
+spring:
+  threads:
+    virtual:
+      enabled: true
+  application:
+    name: api
+
+  datasource:
+    #    url: jdbc:postgresql://postgres-db/thermondo_db
+    url: jdbc:postgresql://192.168.1.61/thermondo_db
+    username: atuin
+    password: at_pass_wd
+
+  flyway:
+    enabled: true
+    baselineOnMigrate: true
+    validateOnMigrate: true
+    locations: classpath:db/migration
+
+  jackson:
+    property-naming-strategy: LOWER_CAMEL_CASE
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus
+
+
+springdoc:
+  group-configs:
+    - group: public
+      paths-to-match: /api/v1/public/**
+    - group: all v1
+      paths-to-match: /api/v1/**
+
+logging:
+  level:
+    org.springframework.cache: TRACE

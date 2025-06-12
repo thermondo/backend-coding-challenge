@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: api
+
+
+  flyway:
+    enabled: true
+    baselineOnMigrate: true
+    validateOnMigrate: true
+    locations: classpath:db/migration
